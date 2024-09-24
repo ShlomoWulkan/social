@@ -7,10 +7,4 @@ const app: Express = express();
 
 const port: number = parseInt(process.env.PORT || '3001');
 
-app.listen(port, () => {
-    try {
-        console.log(`Server running on port ${port}`);
-    } catch (error) {
-        console.log(error);
-    }
-});
+app.listen(port, (): void => console.log(`Server running on port ${port}`));
