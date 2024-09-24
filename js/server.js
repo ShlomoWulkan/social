@@ -1,6 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import authController from './src/contrellers/authController.js';
+import postController from './src/contrellers/postController.js';
+import userController from './src/contrellers/userController.js';
 dotenv.config();
 const app = express();
 const port = parseInt(process.env.PORT || '3001');
+app.use(express.json());
+app.use('/auth', authController);
+app.use('/post', postController);
+app.use('/user', userController);
 app.listen(port, () => console.log(`Server running on port ${port}`));
