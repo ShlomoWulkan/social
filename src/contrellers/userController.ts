@@ -1,6 +1,8 @@
 import express, { Router , Request, Response } from 'express';
 import NewUserDto from '../DTO/newUserDto';
 import UserService from '../services/userService';
+import User from '../models/userModel';
+import e from 'express';
 const router: Router = express.Router();
 
 router.post('/register', async (
@@ -8,7 +10,7 @@ router.post('/register', async (
     res: Response
 ): Promise<void> => {
     try {
-        const result = await UserService.createMNewUser(req.body);
+        const result = await UserService.createNewUser(req.body);
         if (result) {
             res.status(200).json({
             error: false,
@@ -30,15 +32,28 @@ router.post('/register', async (
     }
 })
 
-router.get('/:id', async (req: Request, res: Response): Promise<void> => {
+router.get('/:id', async (
+    req: Request, 
+    res: Response
+): Promise<User | undefined> => {
     try {
-        res.status(200).json({
+        const result = await UserService.getUser(req.params.id);
+        if (result) {
+            res.status(200).json({
             error: false,
             message: 'Success',
-            data: req.body
-        })
+            data: result
+            })
+        }   
+        else {
+            res.status(500).json({ 
+                error: true,
+                message: 'Failed'         
+            });
+        }  
+        return result;
     } catch (error) {
-        res.status(500).json({ 
+        res.status(400).json({ 
             error: true,
             message: error         
         });
@@ -47,13 +62,22 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
 
 router.post('/follow', async (req: Request, res: Response): Promise<void> => {
     try {
-        res.status(200).json({
+        const result = await UserService.createFollowUser(req.body.userId, req.body.followerId);
+        if (result) {
+            res.status(200).json({
             error: false,
             message: 'Success',
-            data: req.body
-        })
+            data: req.body,
+            result
+            })
+        } else {
+            res.status(500).json({ 
+                error: true,
+                message: 'Failed'         
+            });
+        }
     } catch (error) {
-        res.status(500).json({ 
+        res.status(400).json({ 
             error: true,
             message: error         
         });

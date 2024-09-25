@@ -5,6 +5,19 @@
         "avatarUrl": "https://randomuser.me/api/portraits/men/28.jpg",
         "id": "fe0aa9e8-b7c2-4dd2-87b0-266352a6cf6c",
         "followers": [],
+        "following": [
+            "39e805bd-aae0-480c-8902-ddfbfd104b93"
+        ],
+        "isLokedAccount": false
+    },
+    {
+        "password": "shlomo2222",
+        "email": "shlomo@jo.com",
+        "avatarUrl": "https://randomuser.me/api/portraits/men/28.jpg",
+        "id": "39e805bd-aae0-480c-8902-ddfbfd104b93",
+        "followers": [
+            "fe0aa9e8-b7c2-4dd2-87b0-266352a6cf6c"
+        ],
         "following": [],
         "isLokedAccount": false
     }

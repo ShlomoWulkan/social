@@ -1,20 +1,32 @@
 import express, { Router , Request, Response } from 'express';
 import NewPostDto from '../DTO/newPostDTO';
 import PostService from '../services/postService';
+import Post from '../models/postModel';
 const router: Router = express.Router();
 
-router.get('/', async (req: Request, res: Response): Promise<void> => {
+router.get('/', async (req: Request, res: Response): Promise<Post[]> => {
     try {
-        res.status(200).json({
+        const result = await PostService.getAllPosts();
+        if (result) {
+            res.status(200).json({
             error: false,
             message: 'Success',
-            data: req.body
+            data: result
         })
+        }   
+        else {
+            res.status(500).json({ 
+                error: true,
+                message: 'Failed'         
+            });
+        }  
+        return result;           
     } catch (error) {
-        res.status(500).json({ 
+        res.status(400).json({ 
             error: true,
             message: error         
         });
+        throw error
     }
 })
 
@@ -47,30 +59,53 @@ router.post('/', async (
 })
 
 
-router.get('/search', async (req: Request, res: Response): Promise<void> => {
+router.get('/search/', async (req: Request, res: Response): Promise<Post[] | undefined> => {
     try {
-        res.status(200).json({
+        const data = await PostService.getAllPosts();
+        const result = data.filter((post: Post) => post.content.includes(req.query.q as string));        
+        if (result) {
+             res.status(200).json({
             error: false,
             message: 'Success',
-            data: req.body
+            data: result
         })
+        }
+        else {
+            res.status(500).json({ 
+                error: true,
+                message: 'Failed'         
+            });
+        }
+        return result
+       
     } catch (error) {
-        res.status(500).json({ 
+        res.status(400).json({ 
             error: true,
             message: error         
         });
     }
 })
 
-router.get('/:id', async (req: Request, res: Response): Promise<void> => {
+router.get('/:id', async (req: Request, res: Response): Promise<Post | undefined> => {
     try {
-        res.status(200).json({
+        const result = await PostService.getPostById(req.params.id);
+        if (result) {
+             res.status(200).json({
             error: false,
             message: 'Success',
-            data: req.body
+            data: result
         })
+        }
+        else {
+            res.status(500).json({ 
+                error: true,
+                message: 'Failed'         
+            });
+        }
+        return result
+       
     } catch (error) {
-        res.status(500).json({ 
+        res.status(400).json({ 
             error: true,
             message: error         
         });
@@ -78,13 +113,26 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
 })
 
 // protected route
-router.patch('/like/:id', async (req: Request, res: Response): Promise<void> => {
+router.patch('/like', async (
+    req: Request,  
+    res: Response
+): Promise<Post | undefined> => {
     try {
-        res.status(200).json({
-            error: false,
-            message: 'Success',
-            data: req.body
-        })
+        const result = await PostService.createLikePost(req.body.postId, req.body.userId);
+        if (result) {
+            res.status(200).json({
+                error: false,
+                message: 'Success',
+                data: result
+            })
+        }
+        else {
+            res.status(500).json({ 
+                error: true,
+                message: 'Failed'         
+            });
+        }
+        return result
     } catch (error) {
         res.status(500).json({ 
             error: true,
