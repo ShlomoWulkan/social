@@ -1,4 +1,6 @@
 import express, { Router , Request, Response } from 'express';
+import NewPostDto from '../DTO/newPostDTO';
+import PostService from '../services/postService';
 const router: Router = express.Router();
 
 router.get('/', async (req: Request, res: Response): Promise<void> => {
@@ -17,20 +19,33 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
 })
 
 // protected route
-router.post('/', async (req: Request, res: Response): Promise<void> => {
+router.post('/', async (
+    req: Request<any, any, NewPostDto>, 
+    res: Response
+): Promise<void> => {
+    const result = await PostService.createNewPost(req.body);
     try {
-        res.status(200).json({
+         if (result) {
+         res.status(200).json({
             error: false,
             message: 'Success',
             data: req.body
         })
+    }  
+    else {
+            res.status(500).json({ 
+                error: true,
+                message: 'Failed'         
+            });
+        }             
     } catch (error) {
-        res.status(500).json({ 
+        res.status(400).json({ 
             error: true,
             message: error         
         });
     }
 })
+
 
 router.get('/search', async (req: Request, res: Response): Promise<void> => {
     try {

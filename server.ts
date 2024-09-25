@@ -1,5 +1,4 @@
 import express, { Express, Request, Response } from 'express';
-import { v4 as uuid } from 'uuid';
 import dotenv from 'dotenv';
 import authController from './src/contrellers/authController';
 import postController from './src/contrellers/postController';

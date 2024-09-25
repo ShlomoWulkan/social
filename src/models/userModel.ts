@@ -15,6 +15,7 @@ class User {
 
     ) {
         this.id = v4();
-
     }
 }
+
+export default User;
