@@ -1,5 +1,10 @@
-import express from 'express';
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const router = express_1.default.Router();
 router.get('/:id', async (req, res) => {
     try {
         res.status(200).json({
@@ -45,6 +50,7 @@ router.get('/search', async (req, res) => {
         });
     }
 });
+// protected route
 router.get('/profile', async (req, res) => {
     try {
         res.status(200).json({
@@ -60,6 +66,7 @@ router.get('/profile', async (req, res) => {
         });
     }
 });
+// protected route
 router.get('/followers', async (req, res) => {
     try {
         res.status(200).json({
@@ -75,6 +82,7 @@ router.get('/followers', async (req, res) => {
         });
     }
 });
+// protected route
 router.get('/following', async (req, res) => {
     try {
         res.status(200).json({
@@ -90,4 +98,4 @@ router.get('/following', async (req, res) => {
         });
     }
 });
-export default router;
+exports.default = router;

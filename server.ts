@@ -1,9 +1,9 @@
 import express, { Express, Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
 import dotenv from 'dotenv';
-import authController from './src/contrellers/authController.js';
-import postController from './src/contrellers/postController.js';
-import userController from './src/contrellers/userController.js';
+import authController from './src/contrellers/authController';
+import postController from './src/contrellers/postController';
+import userController from './src/contrellers/userController';
 
 dotenv.config();
 

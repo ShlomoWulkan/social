@@ -16,6 +16,7 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
     }
 })
 
+// protected route
 router.post('/', async (req: Request, res: Response): Promise<void> => {
     try {
         res.status(200).json({
@@ -61,6 +62,7 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
     }
 })
 
+// protected route
 router.patch('/like/:id', async (req: Request, res: Response): Promise<void> => {
     try {
         res.status(200).json({

@@ -46,6 +46,7 @@ router.get('/search', async (req: Request, res: Response): Promise<void> => {
     }
 })
 
+// protected route
 router.get('/profile', async (req: Request, res: Response): Promise<void> => {
     try {
         res.status(200).json({
@@ -61,6 +62,7 @@ router.get('/profile', async (req: Request, res: Response): Promise<void> => {
     }
 })
 
+// protected route
 router.get('/followers', async (req: Request, res: Response): Promise<void> => {
     try {
         res.status(200).json({
@@ -76,6 +78,7 @@ router.get('/followers', async (req: Request, res: Response): Promise<void> => {
     }
 })
 
+// protected route
 router.get('/following', async (req: Request, res: Response): Promise<void> => {
     try {
         res.status(200).json({
@@ -90,4 +93,5 @@ router.get('/following', async (req: Request, res: Response): Promise<void> => {
         });
     }
 })
+
 export default router
